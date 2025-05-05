@@ -1,10 +1,11 @@
 import ProductDetail from '@/modules/products/components/ProductDetail';
-import { DATA } from '@/modules/products/mock/products';
+import { getProductsById } from '@/modules/products/services';
+import { ProductsWithImages } from '@/types';
 
 async function page({ params }: { params: Promise<{ id: string }> }) {
   const data = await params;
-  // console.log(data);
-  const product = DATA[0];
+  const { id } = data;
+  const product = (await getProductsById(id)) as ProductsWithImages;
   return <ProductDetail {...product} />;
 }
 
