@@ -21,6 +21,7 @@ import { Product, ProductCategory } from '@/generated/prisma';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { upsertProduct } from '../services';
+import UploadImage from './UploadImage';
 
 const ProductForm = (props: { product: Product | null }) => {
   const { product } = props;
@@ -111,6 +112,11 @@ const ProductForm = (props: { product: Product | null }) => {
           </Button>
         </CardFooter>
       </form>
+      {product?.id && (
+        <CardFooter>
+          <UploadImage productId={product?.id} />
+        </CardFooter>
+      )}
     </Card>
   );
 };
