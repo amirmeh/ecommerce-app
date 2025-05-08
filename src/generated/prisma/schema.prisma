@@ -22,12 +22,12 @@ enum ProductCategory {
 }
 
 model Product {
-  id          String  @id @default(uuid())
+  id          String          @id @default(uuid())
   name        String
-  category    String
+  category    ProductCategory
   description String?
-  price       Float?  @default(0.0)
-  quantity    Int?    @default(0)
+  price       Float?          @default(0.0)
+  quantity    Int?            @default(0)
   images      Image[]
 }
 
