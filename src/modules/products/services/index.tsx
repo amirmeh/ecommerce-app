@@ -10,7 +10,10 @@ export const getProducts = async () => {
 };
 
 export const getProductsAPI = async () => {
-  const result = await fetch('/api/product');
+  // const result = await fetch('/api/product');
+  const result = await fetch('http://localhost:3000/api/product', {
+    next: { revalidate: 30 },
+  });
   const response = await result.json();
   return response;
 };
