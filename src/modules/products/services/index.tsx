@@ -2,6 +2,7 @@
 
 import { Product } from '@/generated/prisma';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export const getProducts = async () => {
@@ -44,6 +45,8 @@ export const upsertProduct = async (product: Product) => {
       data: product,
     });
   }
+
+  revalidatePath('/dashboard/products');
 
   return result;
 };

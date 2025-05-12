@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { MonitorSmartphone, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
+import { Toaster } from '@/components/ui/sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -44,7 +45,10 @@ export default function RootLayout({
             </div>
           </header>
 
-          <div className="px-20 mt-28">{children}</div>
+          <div className="px-20 mt-28">
+            {children}
+            <Toaster />
+          </div>
           {/* <div className="my-10 mx-auto flex justify-center">{ads}</div> */}
 
           <footer className="bg-black w-full text-white flex items-center justify-center h-10">
