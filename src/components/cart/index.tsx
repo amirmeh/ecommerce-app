@@ -16,7 +16,7 @@ export default function CartDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="relative">
+        <Button variant="outline" className="relative cursor-pointer">
           <ShoppingCart size={24} />
           {cart?.length > 0 && (
             <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
@@ -51,6 +51,7 @@ export default function CartDropdown() {
                   variant="destructive"
                   size="sm"
                   onClick={() => removeCartItemMutation.mutate(item.product.id)}
+                  className="cursor-pointer"
                 >
                   ✕
                 </Button>

@@ -8,6 +8,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import Auth from '@/components/auth';
 import ReactQueryProvider from '@/providers/ReactQuery';
 import CartDropdown from '@/components/cart';
+import NavMenu from '@/components/navmenu';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -54,16 +55,21 @@ export default function RootLayout({
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
             <main className="flex flex-col justify-between min-h-screen">
-              <header className="fixed flex justify-between items-center shadow-xl bg-white px-20 w-full h-20 z-40">
-                <div className="flex items-center gap-3">
-                  <MonitorSmartphone />
+              <header className="fixed flex flex-col items-center shadow-xl bg-gray-50 px-20 w-full py-1.5 gap-y-2 z-40">
+                <div className="flex justify-between items-center w-full">
                   <Link href="/" className="font-bold text-2xl">
-                    Tehran Apple Store
+                    <div className="flex items-center gap-3">
+                      <MonitorSmartphone />
+                      Tehran Apple Store
+                    </div>
                   </Link>
+                  <div className="flex items-center justify-center gap-2">
+                    <Auth />
+                    <CartDropdown />
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Auth />
-                  <CartDropdown />
+                <div className="flex justify-start items-center w-full">
+                  <NavMenu />
                 </div>
               </header>
 

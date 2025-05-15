@@ -39,7 +39,7 @@ const ProductItem = (props: { product: any }) => {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full">
+        <Button className="w-full cursor-pointer" asChild>
           <Link href={`/products/${product.id}`}>More Details</Link>
         </Button>
       </CardFooter>

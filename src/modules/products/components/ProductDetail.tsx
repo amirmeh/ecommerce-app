@@ -50,7 +50,7 @@ export default function ProductDetail(product: ProductsWithImages) {
                 {product?.description || 'No Description Available'}
               </p>
               <Button
-                className="my-4"
+                className="my-4 cursor-pointer"
                 onClick={() => addToCartMutation.mutate(product.id)}
               >
                 Add to cart

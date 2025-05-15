@@ -7,3 +7,4 @@ export * from './label';
 export * from './select';
 export * from './textarea';
 export * from './dropdown-menu';
+export * from './navigation-menu';
