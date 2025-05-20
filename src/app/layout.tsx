@@ -63,17 +63,17 @@ export default function RootLayout({
                       Tehran Apple Store
                     </div>
                   </Link>
+                </div>
+                <div className="flex justify-between items-center w-full">
+                  <NavMenu />
                   <div className="flex items-center justify-center gap-2">
                     <Auth />
                     <CartDropdown />
                   </div>
                 </div>
-                <div className="flex justify-start items-center w-full">
-                  <NavMenu />
-                </div>
               </header>
 
-              <div className="px-20 mt-28">
+              <div className="px-20 py-10 mt-22">
                 {children}
                 <Toaster />
               </div>

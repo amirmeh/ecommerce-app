@@ -85,7 +85,9 @@ const ProductTable = (props: {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={5}>Total</TableCell>
-            <TableCell className="text-right">{products.length}</TableCell>
+            <TableCell className="flex items-center justify-center">
+              {products.length}
+            </TableCell>
           </TableRow>
         </TableFooter>
       </Table>

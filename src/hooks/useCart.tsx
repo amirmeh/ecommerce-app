@@ -1,6 +1,8 @@
 'use client';
 
+import { ShinyText } from '@/components/effect';
 import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 export const useCart = () => {
   // get all cart items by query -->cart
@@ -27,7 +29,11 @@ export const useCart = () => {
   // add to cart
 
   const addToCartMutation = useMutation({
-    mutationFn: async (productId: string) => {
+    mutationFn: async (variables: {
+      productId: string;
+      productName: string;
+    }) => {
+      const { productId } = variables;
       const res = await fetch('/api/cart', {
         method: 'POST',
         body: JSON.stringify({ productId }),
@@ -36,31 +42,59 @@ export const useCart = () => {
       if (!res.ok) throw new Error('Failed to add to cart');
       return res.json();
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
-      alert('item is added');
+    onSuccess: async (_data, variables) => {
+      await queryClient.invalidateQueries({ queryKey: ['cart'] });
+      toast.success(
+        <>
+          <ShinyText
+            text={variables.productName}
+            duration={2}
+            delay={1}
+            iteration={1}
+            direction={'normal'}
+            className="font-bold"
+          />
+          {' added to your cart'}
+        </>,
+      );
     },
-    onError: () => {
-      alert('failed to add');
+    onError: (_error, variables) => {
+      toast.error(`Failed to add ${variables.productName} to your cart`);
     },
   });
 
   const removeCartItemMutation = useMutation({
-    mutationFn: async (productId: string) => {
+    mutationFn: async (variables: {
+      productId: string;
+      productName: string;
+    }) => {
+      const { productId } = variables;
       const res = await fetch('/api/cart', {
         method: 'DELETE',
         body: JSON.stringify({ productId }),
         headers: { 'Content-type': 'application/json' },
       });
-      if (!res.ok) throw new Error('Failed to remove from cart');
+      if (!res.ok) throw new Error(`Failed to remove from cart`);
       return res.json();
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
-      alert('item is added');
+    onSuccess: async (_data, variables) => {
+      await queryClient.invalidateQueries({ queryKey: ['cart'] });
+      toast.success(
+        <>
+          <ShinyText
+            text={variables.productName}
+            duration={2}
+            delay={0}
+            iteration={1}
+            direction={'reverse'}
+            className="font-bold"
+          />
+          {' removed from your cart'}
+        </>,
+      );
     },
-    onError: () => {
-      alert('failed to remove');
+    onError: (_error, variables) => {
+      toast.error(`Failed to remove ${variables.productName} from cart`);
     },
   });
 

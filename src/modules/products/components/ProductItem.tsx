@@ -12,7 +12,7 @@ import { GalleryThumbnails, Heart } from 'lucide-react';
 const ProductItem = (props: { product: any }) => {
   const { product } = props;
   return (
-    <Card className="w-[400px] transform transition-transform duration-300 hover:scale-105">
+    <Card className="w-[350px] transform transition-transform duration-300 hover:scale-105">
       <CardHeader>
         <div className="relative w-full h-[300px]">
           <Image
@@ -23,13 +23,11 @@ const ProductItem = (props: { product: any }) => {
           />
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-1">
         <h2 className="text-xl font-bold">{product?.name}</h2>
         <p className="text-gray-500">{product?.category}</p>
-        <div className="flex justify-between items-center">
-          <p className="mt-4 text-lg font-semibold">
-            ${product?.price?.toFixed(2)}
-          </p>
+        <div className="flex justify-between items-center mt-4">
+          <p className="text-lg font-semibold">${product?.price?.toFixed(2)}</p>
           <div className="flex gap-2">
             <Heart />
             <Link href={`/products/catalog?id=${product.id}`}>

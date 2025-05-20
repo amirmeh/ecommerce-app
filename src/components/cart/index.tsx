@@ -6,13 +6,38 @@ import {
   DropdownMenuTrigger,
   Button,
 } from '@/components/ui';
-import { useCart } from '@/hooks/useCart';
+import { useCart } from '@/hooks';
 import { CartWithProduct } from '@/types';
 import { ShoppingCart } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Spinner } from '../loader';
 
 export default function CartDropdown() {
   const { cart, isLoading, removeCartItemMutation } = useCart();
-  console.log(cart);
+  const [removingIds, setRemovingIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    if (!cart) return;
+
+    const idsInCart = new Set(cart.map((c: CartWithProduct) => c.product.id));
+
+    setRemovingIds((prev) => {
+      const next = new Set(prev);
+      prev.forEach((id) => {
+        if (!idsInCart.has(id)) next.delete(id);
+      });
+      return next;
+    });
+  }, [cart]);
+
+  const handleRemove = async (productId: string, productName: string) => {
+    setRemovingIds((prev) => new Set(prev).add(productId));
+    await removeCartItemMutation.mutateAsync({
+      productId,
+      productName,
+    });
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -28,7 +53,7 @@ export default function CartDropdown() {
       <DropdownMenuContent className="w-72 p-4">
         <h4 className="text-lg font-semibold mb-2">Cart Items</h4>
         {isLoading ? (
-          <p>loading...</p>
+          <p>Loading...</p>
         ) : !cart || cart?.length === 0 ? (
           <p>Your cart is empty.</p>
         ) : (
@@ -50,10 +75,19 @@ export default function CartDropdown() {
                 <Button
                   variant="destructive"
                   size="sm"
-                  onClick={() => removeCartItemMutation.mutate(item.product.id)}
+                  disabled={removingIds.has(item.product.id)}
+                  onClick={() =>
+                    handleRemove(item.product.id, item.product.name)
+                  }
                   className="cursor-pointer"
                 >
-                  ✕
+                  {removingIds.has(item.product.id) ? (
+                    <>
+                      Removing... <Spinner />
+                    </>
+                  ) : (
+                    '✕'
+                  )}
                 </Button>
               </div>
             ))}

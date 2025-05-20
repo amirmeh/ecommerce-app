@@ -34,7 +34,6 @@ const NavMenu = () => {
 
   const buttonHeight = 2.25;
   const totalHeight = buttonHeight * categories.length;
-  const containerHeight = `h-[${totalHeight}rem]`;
 
   return (
     <NavigationMenu>
@@ -44,7 +43,7 @@ const NavMenu = () => {
             Categories
           </NavigationMenuTrigger>
           <NavigationMenuContent className="p-0">
-            <div className={`flex ${containerHeight}`}>
+            <div style={{ height: `${totalHeight}rem` }} className="flex">
               {/* Main Categories | Left Column */}
               <div className="flex flex-col border-r whitespace-nowrap">
                 {categories.map((category) => (
@@ -70,13 +69,14 @@ const NavMenu = () => {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/">
-            <NavigationMenuLink
+          <NavigationMenuLink asChild>
+            <Link
+              href="/"
               className={cn(navigationMenuTriggerStyle(), 'border')}
             >
               Contact Us
-            </NavigationMenuLink>
-          </Link>
+            </Link>
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

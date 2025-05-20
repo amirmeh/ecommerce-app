@@ -44,7 +44,7 @@ async function page({ params }: { params: Promise<{ id: string }> }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ProductDetail {...product} />;
+      <ProductDetail {...product} />
     </section>
   );
 }

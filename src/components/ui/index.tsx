@@ -5,6 +5,8 @@ export * from './table';
 export * from './input';
 export * from './label';
 export * from './select';
+export * from './skeleton';
 export * from './textarea';
 export * from './dropdown-menu';
 export * from './navigation-menu';
+export * from './hover-card';

@@ -22,10 +22,15 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { upsertProduct } from '../services';
 import UploadImage from './UploadImage';
+import { useEffect } from 'react';
 
 const ProductForm = (props: { product: Product | null }) => {
   const { product } = props;
   const { register, handleSubmit, setValue } = useForm<Product>();
+
+  useEffect(() => {
+    setValue('category', product?.category || ProductCategory.OTHER);
+  }, [product?.category, setValue]);
 
   const onSubmitForm = (data: Product) => {
     const _product = {
@@ -39,15 +44,19 @@ const ProductForm = (props: { product: Product | null }) => {
   };
 
   return (
-    <Card className="w-[500px] mx-auto mt-10">
+    <Card className="w-[500px] mx-auto">
       <form className="max-w-lg" onSubmit={handleSubmit(onSubmitForm)}>
         <CardHeader>
           <CardTitle> Product</CardTitle>
-          <CardDescription>Create New Product</CardDescription>
+          <CardDescription>
+            {product?.id ? 'Edit Product' : 'Create New Product'}
+          </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="my-2">
-            <Label htmlFor="name">Product Name</Label>
+        <CardContent className="flex flex-col space-y-3 py-5">
+          <div>
+            <Label htmlFor="name" className="mb-1">
+              Product Name
+            </Label>
             <Input
               {...register('name')}
               id="name"
@@ -55,8 +64,10 @@ const ProductForm = (props: { product: Product | null }) => {
               defaultValue={product?.name || ''}
             />
           </div>
-          <div className="my-2">
-            <Label htmlFor="category">Category</Label>
+          <div>
+            <Label htmlFor="category" className="mb-1">
+              Category
+            </Label>
             <Select
               required
               onValueChange={(value) =>
@@ -76,16 +87,20 @@ const ProductForm = (props: { product: Product | null }) => {
               </SelectContent>
             </Select>
           </div>
-          <div className="my-2">
-            <Label htmlFor="description">Description</Label>
+          <div>
+            <Label htmlFor="description" className="mb-1">
+              Description
+            </Label>
             <Textarea
               {...register('description')}
               id="description"
               defaultValue={product?.description || ''}
             />
           </div>
-          <div className="my-2">
-            <Label htmlFor="price">Price</Label>
+          <div>
+            <Label htmlFor="price" className="mb-1">
+              Price
+            </Label>
             <Input
               {...register('price')}
               type="number"
@@ -94,8 +109,10 @@ const ProductForm = (props: { product: Product | null }) => {
               defaultValue={product?.price || ''}
             />
           </div>
-          <div className="my-2">
-            <Label htmlFor="quantity">Quantity</Label>
+          <div>
+            <Label htmlFor="quantity" className="mb-1">
+              Quantity
+            </Label>
             <Input
               {...register('quantity')}
               type="number"
@@ -108,11 +125,12 @@ const ProductForm = (props: { product: Product | null }) => {
           <Button variant="outline" asChild>
             <Link href="/dashboard/products">Back</Link>
           </Button>
-          <Button type="submit">
+          <Button type="submit" className="cursor-pointer">
             {product?.id ? 'Update Product' : 'Add Product'}
           </Button>
         </CardFooter>
       </form>
+      <hr className="border-b-gray-200" />
       {product?.id && (
         <CardFooter>
           <UploadImage productId={product?.id} />

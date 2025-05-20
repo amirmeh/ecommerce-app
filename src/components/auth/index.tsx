@@ -12,14 +12,16 @@ import { LogIn, SquareUserRound } from 'lucide-react';
 
 async function Auth() {
   const user = await currentUser();
-  console.log(user);
+  // console.log(user);
   const isAdmin = user?.privateMetadata?.isAdmin;
 
   return (
     <div>
       <SignedIn>
         {isAdmin ? (
-          <AdminMenu />
+          <div className="flex items-center">
+            <AdminMenu />
+          </div>
         ) : (
           <div className="flex items-center">
             <UserButton />
