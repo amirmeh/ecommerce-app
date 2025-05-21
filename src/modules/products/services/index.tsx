@@ -2,6 +2,7 @@
 
 import { Product } from '@/generated/prisma';
 import { prisma } from '@/lib/prisma';
+import { ProductsWithImages } from '@/types';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -10,13 +11,19 @@ export const getProducts = async () => {
   return result;
 };
 
-export const getProductsAPI = async () => {
-  // const result = await fetch('/api/product');
-  const result = await fetch('http://localhost:3000/api/product', {
-    next: { revalidate: 30 },
-  });
+// export const getProductsAPI = async () => {
+//   // const result = await fetch('/api/product');
+//   const result = await fetch('http://localhost:3000/api/product', {
+//     next: { revalidate: 30 },
+//   });
+//   const response = await result.json();
+//   return response;
+// };
+
+export const getProductsAPI = async (): Promise<ProductsWithImages[]> => {
+  const result = await fetch('http://localhost:3000/api/product');
   const response = await result.json();
-  return response;
+  return response.data;
 };
 
 export const getProductsById = async (id: string) => {

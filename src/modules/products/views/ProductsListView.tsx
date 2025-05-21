@@ -1,27 +1,24 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import ProductsList from '../components/ProductsList';
+import { useQuery } from '@tanstack/react-query';
 import { getProductsAPI } from '../services';
+import ProductsList from '../components/ProductsList';
 import { ProductsWithImages } from '@/types';
+import { ProductItemSkeleton } from '@/components/loader';
 
-function ProductsListView() {
-  const [products, setProducts] = useState<ProductsWithImages[]>([]);
+export default function ProductsListView() {
+  const {
+    data: products,
+    isLoading,
+    isError,
+  } = useQuery<ProductsWithImages[]>({
+    queryKey: ['products'],
+    queryFn: getProductsAPI,
+    staleTime: 1000 * 60 * 5, // 5 Minutes
+  });
 
-  const getProductData = async () => {
-    const result = await getProductsAPI();
-    setProducts(result?.data);
-  };
+  if (isLoading) return <ProductItemSkeleton />;
+  if (isError) return <div>Error in receiving products</div>;
 
-  useEffect(() => {
-    getProductData();
-  }, []);
-  // const products = getProducts();
-  return (
-    <div>
-      <ProductsList products={products} />
-    </div>
-  );
+  return <ProductsList products={products ?? []} />;
 }
-
-export default ProductsListView;

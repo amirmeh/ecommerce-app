@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Carousel,
   CarouselContent,
@@ -14,10 +16,18 @@ import IMG3 from './image/macbook.jpg';
 import IMG4 from './image/pencil.jpg';
 import IMG5 from './image/watch.jpg';
 import Image from 'next/image';
+import Autoplay from 'embla-carousel-autoplay';
 
 function Banner() {
   return (
-    <Carousel className="w-full">
+    <Carousel
+      className="w-full"
+      plugins={[
+        Autoplay({
+          delay: 2000,
+        }),
+      ]}
+    >
       <CarouselContent>
         {[IMG1, IMG2, IMG3, IMG4, IMG5].map((image, index) => (
           <CarouselItem key={index}>
