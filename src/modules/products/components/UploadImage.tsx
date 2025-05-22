@@ -66,7 +66,7 @@ const UploadImage: FC<{ productId: string }> = ({ productId }) => {
 
   return (
     <div className="w-full">
-      <Label htmlFor="picture" className="mb-1">
+      <Label htmlFor="picture" className="mb-1 inline-block">
         Product Image
       </Label>
       <div className="border-l border-input py-3 pl-2">
@@ -79,11 +79,7 @@ const UploadImage: FC<{ productId: string }> = ({ productId }) => {
             onChange={handleChangeFile}
             className="hidden"
           />
-          <Button
-            type="button"
-            onClick={handleClick}
-            className="cursor-pointer"
-          >
+          <Button onClick={handleClick} className="cursor-pointer">
             Choose File
           </Button>
           <UploadFileNameDisplay fileName={file?.name} />
@@ -92,7 +88,10 @@ const UploadImage: FC<{ productId: string }> = ({ productId }) => {
           </Button>
         </div>
         {loading ? (
-          <Spinner size={30} className="mt-4 items-center justify-between" />
+          <Spinner
+            size={'2rem'}
+            className="mt-4 items-center justify-between"
+          />
         ) : (
           <div className="flex gap-2 mt-4 flex-wrap items-center justify-between">
             {images?.map((item) => {

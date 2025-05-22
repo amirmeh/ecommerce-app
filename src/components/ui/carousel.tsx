@@ -138,13 +138,14 @@ function CarouselContent({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       ref={carouselRef}
-      className="overflow-hidden"
+      className="overflow-hidden w-full h-full"
       data-slot="carousel-content"
     >
       <div
         className={cn(
           'flex',
-          orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col',
+          // orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col',
+          orientation === 'horizontal' ? 'flex-row' : 'flex-col',
           className,
         )}
         {...props}
@@ -163,7 +164,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<'div'>) {
       data-slot="carousel-item"
       className={cn(
         'min-w-0 shrink-0 grow-0 basis-full',
-        orientation === 'horizontal' ? 'pl-4' : 'pt-4',
+        // orientation === 'horizontal' ? 'pl-4' : 'pt-4',
         className,
       )}
       {...props}
@@ -187,8 +188,8 @@ function CarouselPrevious({
       className={cn(
         'absolute size-8 rounded-full',
         orientation === 'horizontal'
-          ? 'top-1/2 -left-12 -translate-y-1/2'
-          : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
+          ? 'top-1/2 -left-9 -translate-y-1/2'
+          : '-top-9 left-1/2 -translate-x-1/2 rotate-90',
         className,
       )}
       disabled={!canScrollPrev}
@@ -217,8 +218,8 @@ function CarouselNext({
       className={cn(
         'absolute size-8 rounded-full',
         orientation === 'horizontal'
-          ? 'top-1/2 -right-12 -translate-y-1/2'
-          : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
+          ? 'top-1/2 -right-9 -translate-y-1/2'
+          : '-bottom-9 left-1/2 -translate-x-1/2 rotate-90',
         className,
       )}
       disabled={!canScrollNext}

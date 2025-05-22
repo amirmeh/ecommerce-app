@@ -11,7 +11,7 @@ import {
 export function ProductItemSkeleton() {
   return (
     <div className="flex flex-wrap justify-between items-center w-full my-10 gap-10">
-      {Array.from({ length: 3 }, (_key, index) => (
+      {Array.from({ length: 8 }, (_key, index) => (
         <Card key={index} className="w-[350px]">
           <CardHeader>
             <div className="relative w-full h-[300px]">

@@ -1,33 +1,41 @@
 'use client';
 
-import { DATA } from '@/modules/products/mock/products';
-import { Card, CardContent } from '../ui';
-import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { ProductsWithImages } from '@/types';
+import { getProductsAPI } from '@/modules/products/services';
+import { Spinner } from '../loader';
+import ProductDetailImage from '@/modules/products/components/ProductDetailImage';
 
 function CatalogList() {
   const params = useSearchParams();
   const id = params.get('id');
-  const images = DATA[0].images;
+
+  const {
+    data: products,
+    isLoading,
+    isError,
+  } = useQuery<ProductsWithImages[]>({
+    queryKey: ['products'],
+    queryFn: getProductsAPI,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  if (isLoading)
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
+  if (isError || !products) return <div>Error in receiving products</div>;
+
+  const product = products.find((item) => item.id === id);
+
+  if (!product) return <div>No product with this id</div>;
+
   return (
-    <div className="flex flex-wrap justify-center mb-4">
-      {images?.map((_image: any, index) => {
-        return (
-          <div className="p-1" key={index}>
-            <Card>
-              <CardContent className="flex w-[400px] h-[400px] items-center justify-center p-6">
-                <Image
-                  src={_image?.image}
-                  alt="Gallery"
-                  width={400}
-                  height={400}
-                  className="hover:scale-105 transform transition-transform duration-300"
-                />
-              </CardContent>
-            </Card>
-          </div>
-        );
-      })}
+    <div className="w-[50rem] h-[35rem]">
+      <ProductDetailImage product={product} />
     </div>
   );
 }

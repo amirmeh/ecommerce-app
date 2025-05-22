@@ -1,6 +1,3 @@
-'use client';
-
-import Image from 'next/image';
 import {
   Card,
   CardContent,
@@ -10,48 +7,59 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui';
+import { ProductsWithImages } from '@/types';
+import Image from 'next/image';
 
 type Props = {
-  images: { image: string }[];
-  productName: string;
+  product: ProductsWithImages;
+  prevButtonClassName?: string;
+  nextButtonClassName?: string;
 };
 
-export const ProductDetailImage = ({ images, productName }: Props) => {
-  if (!images || images.length === 0) {
+const ProductDetailImage = ({
+  product,
+  prevButtonClassName,
+  nextButtonClassName,
+}: Props) => {
+  if (!product.images || product.images.length === 0) {
     return (
-      <div className="flex items-center justify-center w-full h-full bg-gray-200 rounded-lg">
-        No Image Available
+      <div className="w-full h-full p-2">
+        <div className="flex items-center justify-center w-full h-full bg-gray-200 rounded-lg">
+          No Image Available
+        </div>
       </div>
     );
   }
 
-  if (images.length === 1) {
+  if (product.images.length === 1) {
     return (
-      <Card className="py-0 overflow-hidden">
-        <CardContent className="relative aspect-square h-96 w-full flex items-center justify-center p-6">
-          <Image
-            src={images[0].image}
-            alt={`${productName}`}
-            fill
-            style={{ objectFit: 'contain' }}
-            className="rounded-lg"
-            priority
-          />
-        </CardContent>
-      </Card>
+      <div className="w-full h-full p-2">
+        <Card className="w-full h-full py-0 overflow-hidden">
+          <CardContent className="relative w-full h-full flex items-center justify-center">
+            <Image
+              src={product.images[0].image}
+              alt={`${product.name}`}
+              fill
+              style={{ objectFit: 'contain' }}
+              className="rounded-lg"
+              priority
+            />
+          </CardContent>
+        </Card>
+      </div>
     );
   }
 
   return (
-    <Carousel opts={{ align: 'end', loop: false }}>
-      <CarouselContent>
-        {images.map((img, idx) => (
-          <CarouselItem key={idx}>
-            <Card className="py-0 overflow-hidden">
-              <CardContent className="relative aspect-square h-96 w-full flex items-center justify-center p-6">
+    <Carousel opts={{ align: 'end', loop: false }} className="w-full h-full">
+      <CarouselContent className="w-full h-full">
+        {product.images.map((img, idx) => (
+          <CarouselItem key={idx} className="p-2">
+            <Card className="w-full h-full py-0 overflow-hidden">
+              <CardContent className="relative w-full h-full flex items-center justify-center">
                 <Image
                   src={img.image}
-                  alt={`${productName} imageNumber:${idx + 1}`}
+                  alt={`${product.name} imageNumber:${idx + 1}`}
                   fill
                   style={{ objectFit: 'contain' }}
                   className="rounded-lg"
@@ -62,8 +70,10 @@ export const ProductDetailImage = ({ images, productName }: Props) => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="left-2" />
-      <CarouselNext className="right-2" />
+      <CarouselPrevious className={prevButtonClassName} />
+      <CarouselNext className={nextButtonClassName} />
     </Carousel>
   );
 };
+
+export default ProductDetailImage;
