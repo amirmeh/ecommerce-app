@@ -20,8 +20,11 @@ export const getProducts = async () => {
 //   return response;
 // };
 
-export const getProductsAPI = async (): Promise<ProductsWithImages[]> => {
-  const result = await fetch('http://localhost:3000/api/product');
+export const getProductsAPI = async (
+  search?: string,
+): Promise<ProductsWithImages[]> => {
+  const params = search ? `?search=${encodeURIComponent(search)}` : '';
+  const result = await fetch(`http://localhost:3000/api/product${params}`);
   const response = await result.json();
   return response.data;
 };

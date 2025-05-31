@@ -19,7 +19,7 @@ export default function ProductSearchInput({ onSearch }: Props) {
   return (
     <Input
       type="text"
-      placeholder="Search products..."
+      placeholder="Search"
       value={input}
       onChange={(e) => setInput(e.target.value)}
       className="w-full max-w-md"
