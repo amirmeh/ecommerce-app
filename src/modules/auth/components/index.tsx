@@ -6,9 +6,9 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/nextjs';
-import AdminMenu from './AdminMenu';
-import { Button } from '../ui';
 import { LogIn, SquareUserRound } from 'lucide-react';
+import AdminMenu from '@/modules/auth/components/AdminMenu';
+import { Button } from '@/components/ui';
 
 async function Auth() {
   const user = await currentUser();
@@ -31,7 +31,7 @@ async function Auth() {
       <SignedOut>
         <div className="inline-flex items-center justify-center gap-2">
           <Button variant="outline" className="cursor-pointer" asChild>
-            <SignInButton mode="modal">
+            <SignInButton>
               <span>
                 <LogIn />
                 Sign in
@@ -39,7 +39,7 @@ async function Auth() {
             </SignInButton>
           </Button>
           <Button variant="outline" className="cursor-pointer" asChild>
-            <SignUpButton mode="modal">
+            <SignUpButton>
               <span>
                 <SquareUserRound />
                 Sign up

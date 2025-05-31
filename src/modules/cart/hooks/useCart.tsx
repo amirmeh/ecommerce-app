@@ -15,6 +15,7 @@ export const useCart = () => {
     data: cart,
     isLoading,
     error,
+    refetch,
   } = useQuery({
     queryKey: ['cart'],
     queryFn: async () => {
@@ -98,5 +99,12 @@ export const useCart = () => {
     },
   });
 
-  return { cart, isLoading, error, addToCartMutation, removeCartItemMutation };
+  return {
+    cart,
+    isLoading,
+    error,
+    refetch,
+    addToCartMutation,
+    removeCartItemMutation,
+  };
 };

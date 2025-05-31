@@ -8,11 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui';
-import { useCart } from '@/hooks/useCart';
 import { ProductsWithImages } from '@/types';
 import { GalleryThumbnails, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 import ProductDetailImage from './ProductDetailImage';
+import { useCart } from '@/modules/cart/hooks';
 
 export default function ProductDetail(product: ProductsWithImages) {
   const { addToCartMutation } = useCart();

@@ -5,10 +5,10 @@ import { MonitorSmartphone } from 'lucide-react';
 import Link from 'next/link';
 import { Toaster } from '@/components/ui/sonner';
 import { ClerkProvider } from '@clerk/nextjs';
-import Auth from '@/components/auth';
+import Auth from '@/modules/auth/components';
 import ReactQueryProvider from '@/providers/ReactQuery';
-import CartDropdown from '@/components/cart';
 import NavMenu from '@/components/navmenu';
+import CartDropdown from '@/modules/cart/components/CartDropdown';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,6 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider
+      // afterSignOutUrl={'/after-signout'}
       appearance={{
         elements: {
           headerTitle: {

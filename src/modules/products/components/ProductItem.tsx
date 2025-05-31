@@ -7,10 +7,10 @@ import {
   CardFooter,
 } from '@/components/ui';
 import Link from 'next/link';
-import CatalogImageModal from '@/components/catalog/CatalogImageModal';
 import { Heart, ShoppingCart } from 'lucide-react';
-import { useCart } from '@/hooks';
 import { Spinner } from '@/components/loader';
+import { useCart } from '@/modules/cart/hooks';
+import CatalogImageModal from './catalog/CatalogImageModal';
 
 const ProductItem = (props: { product: any }) => {
   const { product } = props;

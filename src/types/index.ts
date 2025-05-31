@@ -5,5 +5,11 @@ export type ProductsWithImages = Prisma.ProductGetPayload<{
 }>;
 
 export type CartWithProduct = Prisma.CartItemGetPayload<{
-  include: { product: true; Images: true };
+  include: {
+    product: {
+      include: {
+        images: true;
+      };
+    };
+  };
 }>;

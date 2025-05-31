@@ -12,13 +12,17 @@ export async function GET(req: NextRequest) {
   if (userId) {
     cart = await prisma.cart.findFirst({
       where: { userId },
-      include: { items: { include: { product: true } } },
+      include: {
+        items: { include: { product: { include: { images: true } } } },
+      },
     });
   } else {
     const guest = await getOrCreateGuestProfile(req);
     cart = await prisma.cart.findFirst({
       where: { guestId: guest.id },
-      include: { items: { include: { product: true } } },
+      include: {
+        items: { include: { product: { include: { images: true } } } },
+      },
     });
   }
 

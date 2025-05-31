@@ -1,5 +1,6 @@
+import { Button } from '@/components/ui';
 import { MonitorSmartphone } from 'lucide-react';
-import { Button } from './ui';
+
 import Link from 'next/link';
 
 function Welcome() {

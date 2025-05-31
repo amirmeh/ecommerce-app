@@ -1,5 +1,7 @@
+import CartPageView from '@/modules/cart/views/CartPageView';
+
 function page() {
-  return <div>ajab</div>;
+  return <CartPageView />;
 }
 
 export default page;

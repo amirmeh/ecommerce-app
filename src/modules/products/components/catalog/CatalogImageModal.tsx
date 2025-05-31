@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../ui';
+} from '@/components/ui';
 import ProductDetailImage from '@/modules/products/components/ProductDetailImage';
 import { ProductsWithImages } from '@/types';
 
@@ -17,7 +17,7 @@ type Props = {
 const CatalogImageModal = ({ product }: Props) => {
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button variant={'ghost'} className="cursor-pointer size-9">
           <GalleryThumbnails className="size-6" />
         </Button>

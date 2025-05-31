@@ -4,8 +4,8 @@ import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { ProductsWithImages } from '@/types';
 import { getProductsAPI } from '@/modules/products/services';
-import { Spinner } from '../loader';
 import ProductDetailImage from '@/modules/products/components/ProductDetailImage';
+import { Spinner } from '@/components/loader';
 
 function CatalogList() {
   const params = useSearchParams();
