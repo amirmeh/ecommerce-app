@@ -1,12 +1,14 @@
+import { getRuntimeConfig } from '@/lib/config';
 import { getProducts } from '@/modules/products/services';
 import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { baseUrl } = getRuntimeConfig();
   const products = await getProducts();
   if (products.length < 1) return [];
   const sitemapLink = products.map((item) => {
     return {
-      url: `http://localhost:3000/products/${item.id}`,
+      url: `${baseUrl}/products/${item.id}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.5,

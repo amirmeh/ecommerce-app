@@ -71,6 +71,7 @@ const ProductTable = (props: {
                   </Button>
                   <Button
                     variant="ghost"
+                    className="cursor-pointer"
                     onClick={() => {
                       onDeleteProduct(product.id);
                     }}

@@ -1,6 +1,7 @@
 import { Image } from '@/generated/prisma';
 import { Metadata } from 'next';
 import { OpenGraph } from 'next/dist/lib/metadata/types/opengraph-types';
+import { getRuntimeConfig } from './config';
 
 type ProductMetadata = {
   title?: string;
@@ -15,6 +16,8 @@ export default function customMetadataGenerator({
   keywords = ['digital', 'laptop', 'mobile'],
   images = undefined,
 }: ProductMetadata): Metadata {
+  const { baseUrl } = getRuntimeConfig();
+
   return {
     title,
     description,
@@ -22,7 +25,7 @@ export default function customMetadataGenerator({
     openGraph: {
       title,
       type: 'website',
-      url: `http://localhost:3000/${title}`,
+      url: `${baseUrl}/${title}`,
       images,
     } as OpenGraph,
   };

@@ -1,6 +1,7 @@
 'use server';
 
 import { Product } from '@/generated/prisma';
+import { getRuntimeConfig } from '@/lib/config';
 import { prisma } from '@/lib/prisma';
 import { ProductsWithImages } from '@/types';
 import { revalidatePath } from 'next/cache';
@@ -20,13 +21,51 @@ export const getProducts = async () => {
 //   return response;
 // };
 
+type ProductQueryParams = {
+  search?: string;
+  sort?: string;
+  category?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  page?: number;
+  limit?: number;
+};
+
 export const getProductsAPI = async (
-  search?: string,
-): Promise<ProductsWithImages[]> => {
-  const params = search ? `?search=${encodeURIComponent(search)}` : '';
-  const result = await fetch(`http://localhost:3000/api/product${params}`);
+  params: ProductQueryParams = {},
+): Promise<{
+  data: ProductsWithImages[];
+  total: number;
+  page: number;
+  totalPages: number;
+}> => {
+  const { baseUrl } = getRuntimeConfig();
+  const query = new URLSearchParams();
+
+  if (params.search) query.append('search', params.search);
+  if (params.sort) query.append('sort', params.sort);
+  if (params.category) {
+    params.category.split(',').forEach((cat) => {
+      query.append('category', cat);
+    });
+  }
+  if (params.minPrice !== undefined)
+    query.append('minPrice', params.minPrice.toString());
+  if (params.maxPrice !== undefined)
+    query.append('maxPrice', params.maxPrice.toString());
+  if (params.page) query.append('page', params.page.toString());
+  if (params.limit) query.append('limit', params.limit.toString());
+
+  const result = await fetch(`${baseUrl}/api/product?${query.toString()}`);
   const response = await result.json();
-  return response.data;
+  return response;
+};
+
+export const getProductCategories = async (): Promise<string[]> => {
+  const { baseUrl } = getRuntimeConfig();
+  const res = await fetch(`${baseUrl}/api/product/categories`);
+  const json = await res.json();
+  return json.data;
 };
 
 export const getProductsById = async (id: string) => {
