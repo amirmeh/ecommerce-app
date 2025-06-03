@@ -22,7 +22,9 @@ export default function ProductDetail(product: ProductsWithImages) {
     <div className="container mx-auto py-10">
       <Card className="max-w-5xl mx-auto">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">{product?.name}</CardTitle>
+          <CardTitle className="text-2xl font-bold truncate">
+            {product?.name}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-[28rem_1fr] gap-4">
@@ -38,7 +40,7 @@ export default function ProductDetail(product: ProductsWithImages) {
                 <p>Price: ${product?.price?.toFixed(2)}</p>
                 <p>Quantity: {product?.quantity}</p>
                 <p>Category: {product?.category}</p>
-                <p className="text-gray-600 line-clamp">
+                <p className="text-gray-600 whitespace-pre-line line-clamp-4">
                   {product?.description || 'No Description Available'}
                 </p>
               </div>

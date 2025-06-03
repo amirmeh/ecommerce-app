@@ -50,27 +50,32 @@ export default function CartDropdown() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-80 p-4">
-        <h4 className="text-xl font-semibold">Cart Items</h4>
-        <div className="flex flex-col my-2 mb-3 gap-y-3">
-          <div className="flex flex-col">
-            <p>
-              <span className="text-lg">Subtotal:</span>
-              <span className="text-xl font-semibold">{` $${totalPrice}`}</span>
-            </p>
-            <p className="text-sm">{`${totalQuantity} ${
-              totalQuantity === 1 ? 'item' : 'items'
-            } (across ${cart?.length} ${cart?.length === 1 ? 'product' : 'products'})`}</p>
-          </div>
-          <Link href="/cart">
-            <Button
-              variant={'secondary'}
-              className="cursor-pointer"
-              onClick={() => setIsCartDropdownOpen(false)}
-            >
-              Go to cart
-            </Button>
-          </Link>
-        </div>
+        {cart?.length > 0 && (
+          <>
+            <h4 className="text-xl font-semibold">Cart Items</h4>
+            <div className="flex flex-col my-2 mb-3 gap-y-3">
+              <div className="flex flex-col">
+                <p>
+                  <span className="text-lg">Subtotal:</span>
+                  <span className="text-xl font-semibold">{` $${totalPrice}`}</span>
+                </p>
+                <p className="text-sm">{`${totalQuantity} ${
+                  totalQuantity === 1 ? 'item' : 'items'
+                } (across ${cart?.length} ${cart?.length === 1 ? 'product' : 'products'})`}</p>
+              </div>
+
+              <Link href="/cart">
+                <Button
+                  variant={'secondary'}
+                  className="cursor-pointer"
+                  onClick={() => setIsCartDropdownOpen(false)}
+                >
+                  Go to cart
+                </Button>
+              </Link>
+            </div>
+          </>
+        )}
         <CartItemList />
       </DropdownMenuContent>
     </DropdownMenu>

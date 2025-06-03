@@ -5,12 +5,14 @@ import {
   CardHeader,
   CardContent,
   CardFooter,
+  HoverCard,
 } from '@/components/ui';
 import Link from 'next/link';
 import { Heart, ShoppingCart } from 'lucide-react';
 import { Spinner } from '@/components/loader';
 import { useCart } from '@/modules/cart/hooks';
 import CatalogImageModal from './catalog/CatalogImageModal';
+import { HoverCardContent, HoverCardTrigger } from '@radix-ui/react-hover-card';
 
 const ProductItem = (props: { product: any }) => {
   const { product } = props;
@@ -30,7 +32,16 @@ const ProductItem = (props: { product: any }) => {
         </div>
       </CardHeader>
       <CardContent className="space-y-1">
-        <h2 className="text-xl font-bold">{product?.name}</h2>
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <h2 className="text-xl font-bold truncate">{product?.name}</h2>
+          </HoverCardTrigger>
+          <HoverCardContent>
+            <Card>
+              <CardContent>{product?.name}</CardContent>
+            </Card>
+          </HoverCardContent>
+        </HoverCard>
         <p className="text-gray-500">{product?.category}</p>
         <div className="flex justify-between items-center mt-4">
           <p className="text-lg font-semibold">${product?.price?.toFixed(2)}</p>

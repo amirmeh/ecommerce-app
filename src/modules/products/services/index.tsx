@@ -39,7 +39,6 @@ export const getProductsAPI = async (
   page: number;
   totalPages: number;
 }> => {
-  const { baseUrl } = getRuntimeConfig();
   const query = new URLSearchParams();
 
   if (params.search) query.append('search', params.search);
@@ -56,6 +55,7 @@ export const getProductsAPI = async (
   if (params.page) query.append('page', params.page.toString());
   if (params.limit) query.append('limit', params.limit.toString());
 
+  const { baseUrl } = getRuntimeConfig();
   const result = await fetch(`${baseUrl}/api/product?${query.toString()}`);
   const response = await result.json();
   return response;

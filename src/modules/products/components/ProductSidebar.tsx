@@ -25,6 +25,7 @@ type Props = {
     minPrice: number;
     maxPrice: number;
   }) => void;
+  categories: string[];
 };
 
 export default function ProductSidebar({
@@ -32,6 +33,7 @@ export default function ProductSidebar({
   onSort,
   sort,
   onApplyFilters,
+  categories,
 }: Props) {
   return (
     <SidebarProvider>
@@ -91,7 +93,10 @@ export default function ProductSidebar({
                 <SidebarGroupContent>
                   <CollapsibleContent>
                     <div className="p-2">
-                      <FilterPanel onApply={onApplyFilters} />
+                      <FilterPanel
+                        onApply={onApplyFilters}
+                        categories={categories}
+                      />
                     </div>
                   </CollapsibleContent>
                 </SidebarGroupContent>

@@ -21,9 +21,9 @@ export default function SortSelector({ value, onChange }: Props) {
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="price-asc">Cheapest First</SelectItem>
-          <SelectItem value="price-desc">Most Expensive</SelectItem>
-          <SelectItem value="name-asc">Name (A-Z)</SelectItem>
+          <SelectItem value="price-asc">Price: Low to High</SelectItem>
+          <SelectItem value="price-desc">Price: High to Low</SelectItem>
+          <SelectItem value="name-asc">Name: A to Z</SelectItem>
         </SelectContent>
       </Select>
     </div>

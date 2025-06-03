@@ -1,8 +1,8 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getProductsAPI } from '../services';
+import { getProductCategories, getProductsAPI } from '../services';
 import ProductsList from '../components/ProductsList';
 import { ProductItemSkeleton } from '@/components/loader';
 import ProductsPagination from '../components/filters/ProductsPagination';
@@ -11,6 +11,8 @@ import { SidebarInset } from '@/components/ui';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function ProductsListView() {
+  const [categories, setCategories] = useState<string[]>([]);
+
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -84,6 +86,10 @@ export default function ProductsListView() {
     [searchParams, router],
   );
 
+  useEffect(() => {
+    getProductCategories().then(setCategories);
+  }, []);
+
   return (
     <div className="flex w-full">
       {/* Sidebar */}
@@ -93,6 +99,7 @@ export default function ProductsListView() {
           onSort={handleSort}
           sort={sort}
           onApplyFilters={handleApplyFilters}
+          categories={categories}
         />
       </div>
 

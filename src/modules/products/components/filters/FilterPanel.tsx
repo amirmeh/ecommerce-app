@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Input, Slider, Checkbox, Button } from '@/components/ui';
-import { getProductCategories } from '../../services';
 
 type Props = {
   onApply: (filters: {
@@ -10,19 +9,13 @@ type Props = {
     minPrice: number;
     maxPrice: number;
   }) => void;
+  categories: string[];
 };
 
-export default function FilterPanel({ onApply }: Props) {
-  const [categories, setCategories] = useState<string[]>([]);
+export default function FilterPanel({ onApply, categories }: Props) {
   const [selected, setSelected] = useState<string[]>([]);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(5000);
-
-  useEffect(() => {
-    getProductCategories().then((cats) => {
-      setCategories(cats);
-    });
-  }, []);
 
   const handleApply = () => {
     onApply({ categories: selected, minPrice, maxPrice });
