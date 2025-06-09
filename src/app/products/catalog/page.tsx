@@ -1,5 +1,5 @@
-import CatalogList from '@/components/catalog/CatalogList';
 import { Button } from '@/components/ui';
+import CatalogList from '@/modules/products/components/catalog/CatalogList';
 import Link from 'next/link';
 
 function Catalog() {
