@@ -4,15 +4,12 @@ import { auth } from '@clerk/nextjs/server';
 import { mergeGuestCartToUser } from '@/lib/cart';
 import { getRuntimeConfig } from '@/lib/config';
 
-type PageProps = {
-  searchParams?: {
-    redirect_url?: string;
-  };
-};
-
-export default async function Page(props: PageProps) {
-  const searchParams = props.searchParams || {};
-  const { redirect_url } = searchParams;
+export default async function page({
+  searchParams,
+}: {
+  searchParams: Promise<{ redirect_url?: string }>;
+}) {
+  const { redirect_url } = await searchParams;
 
   const { userId } = await auth();
   const cookieStore = await cookies();
