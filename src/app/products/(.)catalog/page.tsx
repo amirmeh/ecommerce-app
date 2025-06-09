@@ -1,5 +1,5 @@
-import CatalogList from '@/components/catalog/CatalogList';
-import CatalogSelector from '@/components/catalog/CatalogSelector';
+import CatalogList from '@/modules/products/components/catalog/CatalogList';
+import CatalogSelector from '@/modules/products/components/catalog/CatalogSelector';
 
 function Catalog() {
   return (

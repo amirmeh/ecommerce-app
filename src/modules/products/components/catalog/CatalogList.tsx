@@ -7,6 +7,8 @@ import { getProductsAPI } from '@/modules/products/services';
 import ProductDetailImage from '@/modules/products/components/ProductDetailImage';
 import { Spinner } from '@/components/loader';
 
+type ProductsResponse = Awaited<ReturnType<typeof getProductsAPI>>;
+
 function CatalogList() {
   const params = useSearchParams();
   const id = params.get('id');
@@ -15,9 +17,10 @@ function CatalogList() {
     data: products,
     isLoading,
     isError,
-  } = useQuery<ProductsWithImages[]>({
+  } = useQuery<ProductsResponse, Error, ProductsWithImages[]>({
     queryKey: ['products'],
-    queryFn: getProductsAPI,
+    queryFn: () => getProductsAPI(),
+    select: (res) => res.data,
     staleTime: 1000 * 60 * 5,
   });
 
@@ -27,10 +30,10 @@ function CatalogList() {
         <Spinner />
       </div>
     );
+
   if (isError || !products) return <div>Error in receiving products</div>;
 
   const product = products.find((item) => item.id === id);
-
   if (!product) return <div>No product with this id</div>;
 
   return (
