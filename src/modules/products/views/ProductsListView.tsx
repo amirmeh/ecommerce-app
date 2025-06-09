@@ -117,7 +117,7 @@ export default function ProductsListView() {
         ) : isLoading ? (
           <ProductItemSkeleton />
         ) : isError ? (
-          <div>Error in receiving products</div>
+          <div>Error in receiving products (products list)</div>
         ) : (
           <div>No products found.</div>
         )}

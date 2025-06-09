@@ -31,7 +31,8 @@ function CatalogList() {
       </div>
     );
 
-  if (isError || !products) return <div>Error in receiving products</div>;
+  if (isError || !products)
+    return <div>Error in receiving products (catalog)</div>;
 
   const product = products.find((item) => item.id === id);
   if (!product) return <div>No product with this id</div>;
