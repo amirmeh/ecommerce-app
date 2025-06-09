@@ -26,11 +26,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children, // slot for ads
-  ads, // slot for children
+  children,
 }: Readonly<{
   children: React.ReactNode;
-  ads: React.ReactNode;
 }>) {
   return (
     <ClerkProvider
@@ -78,7 +76,6 @@ export default function RootLayout({
                 {children}
                 <Toaster />
               </div>
-              {/* <div className="my-10 mx-auto flex justify-center">{ads}</div> */}
 
               <footer className="bg-black w-full text-white flex items-center justify-center h-10">
                 <p>
